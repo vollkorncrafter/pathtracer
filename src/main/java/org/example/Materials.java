@@ -9,7 +9,7 @@ public class Materials {
 
     public static Material grey = new Material(0,1,new Vector3f(0.2f,0.2f,0.2f),"grey");
 
-    public static Material light = new Material(10,0,new Vector3f(10,10,10),"light");
+    public static Material light = new Material(10,0,new Vector3f(100,100,100),"light");
 
     public static Material sky = new Material(0,0,new Vector3f(0,0,0),"sky");
 }

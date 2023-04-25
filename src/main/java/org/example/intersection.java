@@ -57,19 +57,19 @@ public class intersection {
         out.normal = c.normal;
 
         if(c.mat.equals("red")){
-            out.color = new Vector3f(0.8f,0,0);
+            out.color = new Vector3f(0.4f,0.1f,0.1f);
             out.radiance = new Vector3f(0.8f,0.8f,0.8f);
 
             out.material = Materials.red;
 
 
         }else if(c.mat.equals("green")){
-            out.color = new Vector3f(0,0.8f,0);
+            out.color = new Vector3f(0.1f,0.4f,0.1f);
             out.radiance = new Vector3f(0.8f,0.8f,0.8f);
 
             out.material = Materials.green;
         }else if(c.mat.equals("grey")){
-            out.color = new Vector3f(0.5f,0.5f,0.5f);
+            out.color = new Vector3f(0.4f,0.4f,0.4f);
             out.radiance = new Vector3f(0.8f,0.8f,0.8f);
 
             out.material = Materials.grey;

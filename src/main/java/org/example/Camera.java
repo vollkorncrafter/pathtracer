@@ -33,7 +33,6 @@ public class Camera {
             hits[i] = h;
             r = randomizeNormal(h.normal, 90, h.point, 0.001f);
         }
-        System.out.println(hits);
         return hits;
     }
 
@@ -62,35 +61,37 @@ public class Camera {
         return o;
     }
 
-    int bounces = 3;
+    int bounces = 6;
 
     public Vector3f renderPixel(Ray r, int n) {
-        Vector3f col = new Vector3f(0,0,0);
+        Vector3f col = new Vector3f(0, 0, 0);
+        Vector3f color = null;
         for (int i = 0; i < n; i++) {
             Hitrecord hit = verts.hitAll(r);
-            col = hit.material.color;
+            col = hit.color;
 
             if (hit.Sky) {
-                col = new Vector3f(0,0,0);
-            }else{
+                col = new Vector3f(0, 0, 0);
+            } else {
                 //System.out.println("true");
-                Ray secondaryRay = randomizeNormal(hit.normal,90,hit.point,0.001f);
+                Ray secondaryRay = randomizeNormal(hit.normal, 90, hit.point, 0.001f);
 
-                Hitrecord[] col2 = bounce(bounces,secondaryRay);
-                for(int x = col2.length-1; x > -1; x--){
+                Hitrecord[] col2 = bounce(bounces, secondaryRay);
+                color = col2[col2.length - 1].color;
+                for (int x = col2.length - 2; x > -1; x--) {
                     Hitrecord c = col2[x];
-                    
+
+                    color.mul(c.color);
+
                 }
             }
         }
-        col.div(bounces);
-        //col.div(bounces + 1);
-        //System.out.println(col);
-        if(col != null) {
+        col.mul(color);
+        if (col != null) {
             col.mul(255);
             return col;
         }
-        return new Vector3f(0,0,0);
+        return new Vector3f(0, 0, 0);
     }
 
 

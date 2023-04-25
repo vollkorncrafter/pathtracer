@@ -32,11 +32,11 @@ public class Main {
         Path fileName = Path.of("/home/oskar/Dokumente/GitHub/pathtracer/src/test_scene/test.ppm");
 
         float aspect_ratio = 1 / 1f;
-        int image_width = 128;
+        int image_width = 256;
         int image_height = (int) (image_width / aspect_ratio);
-        image_height  = 128;
+        image_height  = 256;
 
-        int samples = 1;
+        int samples = 500;
 
         float viewport_height = 1;
         float viewport_width = aspect_ratio * viewport_height;
