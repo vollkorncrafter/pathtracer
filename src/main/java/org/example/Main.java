@@ -29,7 +29,7 @@ public class Main {
 
 
         String out = "";
-        Path fileName = Path.of("C:\\Users\\Oskar/r.ppm");
+        Path fileName = Path.of("/home/oskar/Dokumente/GitHub/pathtracer/src/test_scene/test.ppm");
 
         float aspect_ratio = 1 / 1f;
         int image_width = 128;
@@ -53,7 +53,7 @@ public class Main {
         Camera cam = new Camera();
 
         Hittables verts = new Hittables();
-        verts.tris = OBJLoader.loadTrianglesFromObj("C:\\Users\\Oskar/objekt.obj");
+        verts.tris = OBJLoader.loadTrianglesFromObj("/home/oskar/Dokumente/GitHub/pathtracer/src/test_scene/scene.obj");
 
         cam.verts = verts;
 
@@ -69,7 +69,7 @@ public class Main {
                 Vector3f avg = new Vector3f(0,0,0);
 
                 for(int s = 0; s < samples; s++) {
-                    point.add(Noise.noise(0.000f));
+                    point.add(Noise.noise(0.00005f));
 
                     Ray r = new Ray(origin, point);
 
@@ -83,9 +83,6 @@ public class Main {
                 String c = Color.toRGBstring(avg);
                 //System.out.println(c);
                 out += c + "\n";
-
-
-
 
 
             }

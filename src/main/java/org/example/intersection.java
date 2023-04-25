@@ -9,6 +9,7 @@ import static org.joml.Intersectionf.intersectLineSegmentTriangle;
 
 public class intersection {
 
+
     public static Hitrecord rayTriangleIntersection(Ray r,Triangle c) {
 
 
@@ -56,17 +57,27 @@ public class intersection {
         out.normal = c.normal;
 
         if(c.mat.equals("red")){
-            out.color = new Vector3f(1,0,0);
+            out.color = new Vector3f(0.8f,0,0);
             out.radiance = new Vector3f(0.8f,0.8f,0.8f);
+
+            out.material = Materials.red;
+
+
         }else if(c.mat.equals("green")){
-            out.color = new Vector3f(0,1,0);
+            out.color = new Vector3f(0,0.8f,0);
             out.radiance = new Vector3f(0.8f,0.8f,0.8f);
+
+            out.material = Materials.green;
         }else if(c.mat.equals("grey")){
             out.color = new Vector3f(0.5f,0.5f,0.5f);
             out.radiance = new Vector3f(0.8f,0.8f,0.8f);
+
+            out.material = Materials.grey;
         }else if(c.mat.equals("light")){
-            out.color = new Vector3f(1,1,1);
+            out.color = new Vector3f(4,4,4);
             out.radiance = new Vector3f(10f,10f,10f);
+
+            out.material = Materials.light;
         }
 
         return out;

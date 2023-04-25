@@ -4,11 +4,16 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import de.javagl.obj.Obj;
+import de.javagl.obj.ObjReader;
 import org.example.Triangle;
 import org.joml.Vector3f;
 
 public class OBJLoader {
     public static ArrayList<Triangle> loadTrianglesFromObj(String filename) {
+
+
         ArrayList<Triangle> triangles = new ArrayList<Triangle>();
         ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
         ArrayList<String> materials = new ArrayList<String>();

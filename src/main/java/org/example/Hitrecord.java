@@ -7,6 +7,7 @@ public class Hitrecord {
     public Vector3f point;
     public double distance;
 
+    public Material material;
     public Vector3f color;
 
     public Vector3f radiance;
