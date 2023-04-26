@@ -32,12 +32,11 @@ public class Main {
         Path fileName = Path.of("src/test_scene/test.ppm");
 
         float aspect_ratio = 1 / 1f;
-        int image_width = 256;
+        int image_width = 128;
         int image_height = (int) (image_width / aspect_ratio);
-        image_height  = 256;
+        image_height  = 128;
 
-        int samples = 100;
-
+        int samples = 1;
         float viewport_height = 1;
         float viewport_width = aspect_ratio * viewport_height;
         float focal_length = 1f;
