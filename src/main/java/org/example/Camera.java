@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 
 import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Camera {
 
@@ -26,12 +27,19 @@ public class Camera {
         }
 
 
-    public Hitrecord[] bounce(int max, Ray r) {
-        Hitrecord[] hits = new Hitrecord[max];
+    public ArrayList<Hitrecord> bounce(int max, Ray r) {
+            ArrayList<Hitrecord> hits = new ArrayList<>();
+
         for(int i = 0; i < max; i++){
             Hitrecord h = verts.hitAll(r);
-            hits[i] = h;
-            r = randomizeNormal(h.normal, 90, h.point, 0.001f);
+            hits.add(h);
+            if(Objects.equals(h.material.name, "light")){
+                //System.out.println(i);
+                return hits;
+            }else {
+                r = randomizeNormal(h.normal, 90, h.point, 0.001f);
+            }
+
         }
         return hits;
     }
@@ -61,7 +69,7 @@ public class Camera {
         return o;
     }
 
-    int bounces = 6;
+    int bounces = 5;
 
     public Vector3f renderPixel(Ray r, int n) {
         Vector3f col = new Vector3f(0, 0, 0);
@@ -72,22 +80,29 @@ public class Camera {
 
             if (hit.Sky) {
                 col = new Vector3f(0, 0, 0);
+            } else if (Objects.equals(hit.material.name, "light")) {
+                col = new Vector3f(1, 1, 1);
             } else {
                 //System.out.println("true");
                 Ray secondaryRay = randomizeNormal(hit.normal, 90, hit.point, 0.001f);
 
-                Hitrecord[] col2 = bounce(bounces, secondaryRay);
-                color = col2[col2.length - 1].color;
-                for (int x = col2.length - 2; x > -1; x--) {
-                    Hitrecord c = col2[x];
+                ArrayList<Hitrecord> col2 = bounce(bounces, secondaryRay);
+                color = col2.get(col2.size() - 1).color;
+                for (int x = col2.size() - 2; x > -1; x--) {
+                    Hitrecord c = col2.get(x);
 
                     color.mul(c.color);
 
                 }
             }
-        }
-        col.mul(color);
+
+            }
+
+
         if (col != null) {
+            if (color != null){
+                col.mul(color);
+            }
             col.mul(255);
             return col;
         }
