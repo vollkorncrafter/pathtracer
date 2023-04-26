@@ -5,13 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.javagl.obj.Obj;
-import de.javagl.obj.ObjReader;
-import org.example.Triangle;
 import org.joml.Vector3f;
 
 public class OBJLoader {
-    public static ArrayList<Triangle> loadTrianglesFromObj(String filename) {
+    public static Triangle[] loadTrianglesFromObj(String filename) {
 
 
         ArrayList<Triangle> triangles = new ArrayList<Triangle>();
@@ -72,6 +69,6 @@ public class OBJLoader {
             e.printStackTrace();
         }
 
-        return triangles;
+        return triangles.toArray(new Triangle[triangles.size()]);
     }
 }

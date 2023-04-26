@@ -8,45 +8,7 @@ import static org.joml.Intersectionf.intersectLineSegmentTriangle;
 
 public class intersection {
 
-
-
-    public static boolean intersectsAABB(Ray ray, Triangle tri) {
-        Vector3f direction = ray.dir;
-        Vector3f origin = ray.origin;
-        Vector3f inv_direction = new Vector3f(1f / direction.x, 1f / direction.y, 1f / direction.z);
-
-        float tmin_x = (tri.aab.minX - origin.x) * inv_direction.x;
-        float tmax_x = (tri.aab.maxX - origin.x) * inv_direction.x;
-        float tmin_y = (tri.aab.minY - origin.y) * inv_direction.y;
-        float tmax_y = (tri.aab.maxY - origin.y) * inv_direction.y;
-
-        float tmin = Math.max(Math.min(tmin_x, tmax_x), Math.min(tmin_y, tmax_y));
-        float tmax = Math.min(Math.max(tmin_x, tmax_x), Math.max(tmin_y, tmax_y));
-
-        return tmax >= tmin;
-    }
-
-
-
-
     public static Hitrecord rayTriangleIntersection(Ray r,Triangle c) {
-
-
-
-
-    //System.out.println(intersectsAABB(r,c));
-
-
-
-
-
-
-
-
-
-        //if(intersectsAABB(r,c)) {
-
-
 
             Vector3f v0 = c.v1;
             Vector3f v1 = c.v2;
