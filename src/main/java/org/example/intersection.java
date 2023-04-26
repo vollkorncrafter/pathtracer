@@ -75,7 +75,7 @@ public class intersection {
             out.material = Materials.grey;
         }else if(c.mat.equals("light")){
             out.color = new Vector3f(
-                    100,100,100);
+                    50,50,50);
             out.radiance = new Vector3f(10f,10f,10f);
 
             out.material = Materials.light;

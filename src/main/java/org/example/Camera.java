@@ -33,7 +33,7 @@ public class Camera {
         for(int i = 0; i < max; i++){
             Hitrecord h = verts.hitAll(r);
             hits.add(h);
-            if(Objects.equals(h.material.name, "light")){
+            if(Objects.equals(h.material.name, "light") || Objects.equals(h.material.name, "sky")){
                 //System.out.println(i);
                 return hits;
             }else {
@@ -79,7 +79,7 @@ public class Camera {
             col = hit.color;
 
             if (hit.Sky) {
-                col = new Vector3f(0, 0, 0);
+                col = hit.color;
             } else if (Objects.equals(hit.material.name, "light")) {
                 col = new Vector3f(1, 1, 1);
             } else {

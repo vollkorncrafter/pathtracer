@@ -29,12 +29,12 @@ public class Main {
 
 
         String out = "";
-        Path fileName = Path.of("/home/oskar/Dokumente/GitHub/pathtracer/src/test_scene/test.ppm");
+        Path fileName = Path.of("src/test_scene/test.ppm");
 
         float aspect_ratio = 1 / 1f;
-        int image_width = 512;
+        int image_width = 256;
         int image_height = (int) (image_width / aspect_ratio);
-        image_height  = 512;
+        image_height  = 256;
 
         int samples = 100;
 
@@ -53,7 +53,7 @@ public class Main {
         Camera cam = new Camera();
 
         Hittables verts = new Hittables();
-        verts.tris = OBJLoader.loadTrianglesFromObj("/home/oskar/Dokumente/GitHub/pathtracer/src/test_scene/scene.obj");
+        verts.tris = OBJLoader.loadTrianglesFromObj("src/test_scene/scene.obj");
 
         cam.verts = verts;
 
