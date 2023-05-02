@@ -8,33 +8,16 @@ import java.nio.file.Path;
 
 public class Main {
 
-    public static Vector3f rayColor(Ray r) {
-            Vector3f unitDirection = new Vector3f(r.dir).normalize();
-            float t = 0.5f * (unitDirection.y() + 1.0f);
-            Vector3f out = new Vector3f(1.0f, 1.0f, 1.0f).mul(1.0f - t)
-                    .add(new Vector3f(0.5f, 0.7f, 1.0f).mul(t))
-                    .mul(255.0f);
-
-            return out;
-        }
-
-
-
-
     public static void main(String[] args) throws IOException {
-
-
-
-
         String out = "";
         Path fileName = Path.of("src/test_scene/test.ppm");
 
         float aspect_ratio = 1 / 1f;
-        int image_width = 1024;
+        int image_width = 256;
         int image_height = (int) (image_width / aspect_ratio);
-        image_height  = 1024;
+        image_height  = 256;
 
-        int samples = 20;
+        int samples = 1;
         float viewport_height = 1;
         float viewport_width = aspect_ratio * viewport_height;
         float focal_length = 1f;
@@ -62,14 +45,12 @@ public class Main {
 
                 Vector3f point = Camera.pointOnImagePlane(lower_left_corner,horizontal,vertical,origin,u,v);
 
-
                 Vector3f avg = new Vector3f(0,0,0);
 
                 for(int s = 0; s < samples; s++) {
-                    point.add(Noise.noise(0.00005f));
+                    //point.add(Noise.noise(0.00005f));
 
                     Ray r = new Ray(origin, point);
-
 
                     Vector3f px = cam.renderPixel(r,1);
                     avg.add(px);
@@ -78,9 +59,7 @@ public class Main {
                 avg.div(samples);
 
                 String c = Color.toRGBstring(avg);
-                //System.out.println(c);
                 out += c + "\n";
-
 
             }
             System.out.println("line" + j);
@@ -91,16 +70,8 @@ public class Main {
 
         }
 
-
-
-        // Writing into the file
         Files.writeString(fileName, out);
 
-        // Reading the content of the file
         String file_content = Files.readString(fileName);
-
-        // Printing the content inside the file
-        //System.out.println(file_content);
-
     }
 }

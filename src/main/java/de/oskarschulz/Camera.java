@@ -11,9 +11,15 @@ public class Camera {
 
 
 
-    public static Ray randomizeNormal(Vector3f normal, int maxRotationAngle, Vector3f hitPoint, float offset) {
+    public static Ray randomizeNormal(Vector3f normal, int maxRotationAngle, Vector3f hitPoint, float offset, Vector3f dir, int id) {
 
-            Vector3f randomizedNormal = Noise.dir(normal);
+        Vector3f randomizedNormal;
+            if(id == 3){
+                randomizedNormal = Noise.reflect(dir,normal);
+            } else {
+                randomizedNormal = Noise.dir(normal);
+            }
+            //Vector3f randomizedNormal = Noise.reflect(dir,normal);
 
             Vector3f offsetHitPoint = new Vector3f(hitPoint).add(new Vector3f(randomizedNormal).mul(offset));
 
@@ -28,10 +34,11 @@ public class Camera {
         for(int i = 0; i < max; i++){
             Hitrecord h = verts.hitAll(r);
             hitArray[i] = h;
-            if(Objects.equals(h.material.name, "light") || Objects.equals(h.material.name, "sky")){
+
+            if(h.material.id == 1 || h.Sky){
                 break;
             }else {
-                r = randomizeNormal(h.normal, 90, h.point, 0.001f);
+                r = randomizeNormal(h.normal, 90, h.point, 0.001f,r.dir,h.material.id);
             }
 
         }
@@ -65,11 +72,7 @@ public class Camera {
     int bounces = 5;
 
     public Vector3f renderPixel(Ray r, int n) {
-
-
         hitArray = new Hitrecord[bounces];
-
-
         Vector3f col = new Vector3f(0, 0, 0);
         Vector3f color = null;
         for (int i = 0; i < n; i++) {
@@ -78,18 +81,16 @@ public class Camera {
 
             if (hit.Sky) {
                 col = hit.color;
-            } else if (Objects.equals(hit.material.name, "light")) {
+            } else if (hit.material.id == 1) {    //light id = 1;
                 col = new Vector3f(1, 1, 1);
             } else {
-                Ray secondaryRay = randomizeNormal(hit.normal, 90, hit.point, 0.001f);
-
+                Ray secondaryRay = randomizeNormal(hit.normal, 90, hit.point, 0.001f,r.dir,hit.material.id);
                 bounce(bounces, secondaryRay);
                 color = hitArray[0].color;
                 for (int x = 1; x < hitArray.length-1; x++) {
                     if(hitArray[x] != null) {
                         color.mul(hitArray[x].color);
-                        //System.out.println(hitArray[x].color);
-                        if (Objects.equals(hitArray[x].material.name, "light") || Objects.equals(hitArray[x].material.name, "sky")) {
+                        if (hit.material.id == 1 || hit.Sky) {
                             break;
                         }
                     }

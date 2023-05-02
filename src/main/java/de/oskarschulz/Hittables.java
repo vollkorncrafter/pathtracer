@@ -37,7 +37,7 @@ public class Hittables {
             return out;
         }
 
-        Hitrecord sky = new Hitrecord(new Vector3f(), new Vector3f(), new Vector3f(), true, null);
+        Hitrecord sky = new Hitrecord(null, null, null, true);
         sky.color = getSkyboxColor(r.dir);
         sky.material = Materials.sky;
         return sky;

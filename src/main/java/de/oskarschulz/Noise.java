@@ -10,14 +10,6 @@ public class Noise {
 
     }
 
-    public static Vector3f reflect(Vector3f ray, Vector3f normal) {
-
-        float dot = ray.dot(normal);
-        normal.mul(2f * dot);
-        ray.sub(normal);
-        return ray;
-    }
-
     public static Vector3f dir(Vector3f normal) {
         Vector3f n = normal;
         n.rotateX((float) ((Math.random() * Math.PI) - Math.PI/2));
@@ -26,5 +18,20 @@ public class Noise {
         n.normalize();
         return n;
     }
+
+
+
+
+
+    public static Vector3f reflect(Vector3f vector, Vector3f normal) {
+        float dotProduct = vector.dot(normal);
+        Vector3f reflectedVector = new Vector3f();
+        reflectedVector.set(normal);
+        reflectedVector.mul(2 * dotProduct);
+        reflectedVector.sub(vector);
+        return reflectedVector;
+    }
+
+
 
 }
